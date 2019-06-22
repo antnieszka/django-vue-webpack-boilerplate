@@ -9,6 +9,6 @@
 {% endblock %}
 
 {% block js %}
-  {{ block.super }}
-  {% render_bundle 'main' %}
+  {{ block.super }} <!--include JS from parent (base.html)-->
+  {% render_bundle 'main-page' %}
 {% endblock %}

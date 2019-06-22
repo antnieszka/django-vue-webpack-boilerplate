@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="getStats(this)" class="klekle">Update stats</button>
+    <button @click="getStats()" class="klekle">Update stats</button>
   </div>
 </template>
 
@@ -45,7 +45,7 @@ export default {
   background-color: aquamarine;
 }
 .klekle {
-  border: solid 5px red;
+  border: dashed 5px black;
   padding: 10px;
 
   &:hover {

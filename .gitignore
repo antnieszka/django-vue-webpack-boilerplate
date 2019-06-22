@@ -55,3 +55,7 @@ staticfiles/
 static/
 static-frontend/
 assets/
+
+# webpack output files
+webpack-stats.json
+webpack-stats-prod.json

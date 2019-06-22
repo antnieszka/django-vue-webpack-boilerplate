@@ -17,11 +17,11 @@
 
     <div class="container">
       {% block content %}
+        <p>This content block is empty...</p>
       {% endblock content %}
     </div>
 
     {% block js %}
-      {% render_bundle 'manifest' %}
       {% render_bundle 'vendor' %}
     {% endblock js %}
   </body>
