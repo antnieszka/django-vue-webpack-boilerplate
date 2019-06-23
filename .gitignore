@@ -51,10 +51,10 @@ ENV/
 .mypy_cache/
 
 # Staticfiles
-staticfiles/
-static/
-static-frontend/
-assets/
+/staticfiles/
+/static/
+/static-frontend/
+/assets/
 
 # webpack output files
 webpack-stats.json

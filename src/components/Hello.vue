@@ -1,7 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
-    <button @click="getStats()" class="klekle">Update stats</button>
+    <button @click="getStats()" class="btn btn-warning klekle">Update stats</button>
   </div>
 </template>
 
@@ -40,12 +40,13 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss" scoped>
+<style lang="scss">
 .hello {
   background-color: aquamarine;
 }
 .klekle {
   border: dashed 5px black;
+  border-radius: 1rem;
   padding: 10px;
 
   &:hover {

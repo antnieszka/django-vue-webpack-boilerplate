@@ -8,7 +8,6 @@ import VueResource from "vue-resource";
 // import "bootstrap-vue/dist/bootstrap-vue.css";
 
 import App from "./app";
-import MainPageSearch from "./components/MainPageSearch";
 
 Vue.config.productionTip = false;
 
@@ -19,5 +18,5 @@ Vue.use(VueResource);
 new Vue({
   el: "#app",
   template: "<App/>",
-  components: { App, MainPageSearch }
+  components: { App }
 });
