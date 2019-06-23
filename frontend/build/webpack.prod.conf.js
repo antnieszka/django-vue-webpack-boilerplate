@@ -1,33 +1,34 @@
-'use strict'
-const env = require('../config/prod.env');
-const utils = require('./utils');
-const webpack = require('webpack');
-const config = require('../config');
-const merge = require('webpack-merge');
-const baseWebpackConfig = require('./webpack.base.conf');
-const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-const BundleTracker = require('webpack-bundle-tracker');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const { VueLoaderPlugin } = require('vue-loader');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+"use strict";
+const utils = require("./utils");
+const webpack = require("webpack");
+const config = require("../config");
+const merge = require("webpack-merge");
+const baseWebpackConfig = require("./webpack.base.conf");
+const OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
+const BundleTracker = require("webpack-bundle-tracker");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const { VueLoaderPlugin } = require("vue-loader");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const webpackConfig = merge(baseWebpackConfig, {
-  mode: 'production',
+  mode: "production",
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
-    filename: utils.assetsPath('js/[name].[chunkhash].js'),
-    chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
+    filename: utils.assetsPath("js/[name].[chunkhash].js"),
+    chunkFilename: utils.assetsPath("js/[id].[chunkhash].js")
   },
   plugins: [
     new BundleTracker({
-      publicPath: '/static/',
-      filename: './webpack-stats-prod.json'
+      publicPath: "/static/",
+      filename: "./webpack-stats-prod.json"
     }),
     new VueLoaderPlugin(),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      "process.env": {
+        NODE_ENV: '"production"'
+      }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new UglifyJsPlugin({
@@ -47,43 +48,43 @@ const webpackConfig = merge(baseWebpackConfig, {
     // enable scope hoisting
     new webpack.optimize.ModuleConcatenationPlugin(),
     new MiniCssExtractPlugin({
-      filename: utils.assetsPath('css/[name].[hash].css'),
-    }),
+      filename: utils.assetsPath("css/[name].[hash].css")
+    })
   ],
   optimization: {
     splitChunks: {
       cacheGroups: {
         commons: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
-          chunks: 'all'
+          name: "vendor",
+          chunks: "all"
         }
       }
     }
   }
-})
+});
 
 if (config.build.productionGzip) {
-  const CompressionWebpackPlugin = require('compression-webpack-plugin')
+  const CompressionWebpackPlugin = require("compression-webpack-plugin");
 
   webpackConfig.plugins.push(
     new CompressionWebpackPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
+      asset: "[path].gz[query]",
+      algorithm: "gzip",
       test: new RegExp(
-        '\\.(' +
-        config.build.productionGzipExtensions.join('|') +
-        ')$'
+        "\\.(" +
+        config.build.productionGzipExtensions.join("|") +
+        ")$"
       ),
       threshold: 10240,
       minRatio: 0.8
     })
-  )
+  );
 }
 
 if (config.build.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+  const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 }
 
-module.exports = webpackConfig
+module.exports = webpackConfig;

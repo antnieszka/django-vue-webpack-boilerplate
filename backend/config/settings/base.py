@@ -9,38 +9,40 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Build paths inside the project like this: os.path.join(ROOT_DIR, ...)
+ROOT_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
-# Project path to allow relative paths for my path variables
-PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
+# ROOT_DIR/backend
+BACKEND_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+)
 
+# ROOT_DIR/frontend
+FRONTEND_DIR = os.path.join(ROOT_DIR, "frontend")
+
+# ROOT_DIR/backend/config
+CONFIG_DIR_PATH = os.path.realpath(os.path.dirname(os.path.dirname(__file__)))
+
+DEBUG = os.environ.setdefault("DJANGO_DEBUG", "False")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "n3@wsgyxr)65$+s%z=b7#@8460%t_t0&s*elevyu%h5w_0i9@@"
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-if DEBUG:
-    INTERNAL_IPS = ("127.0.0.1", "localhost")
-
-
 # Application definition
 
 INSTALLED_APPS = [
+    # Django apps
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # Third-party apps
     "webpack_loader",
+    # Your apps
     "backend.app",
 ]
 
@@ -54,12 +56,12 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "vuedj.urls"
+ROOT_URLCONF = "backend.config.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join("backend", "app", "templates")],
+        "DIRS": [os.path.join(BACKEND_DIR, "templates")],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -72,7 +74,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "vuedj.wsgi.application"
+WSGI_APPLICATION = "backend.config.wsgi.application"
 
 
 # Database
@@ -81,10 +83,9 @@ WSGI_APPLICATION = "vuedj.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+        "NAME": os.path.join(ROOT_DIR, "db.sqlite3"),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -118,29 +119,11 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(ROOT_DIR, "static")
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "backend", "static"),
-    os.path.join(BASE_DIR, "assets"),
+    os.path.join(BACKEND_DIR, "static"),
+    os.path.join(
+        FRONTEND_DIR, "assets"
+    ),  # collecting frontend generated assets (assets/dist)
 )
-
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",
-        "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "TIMEOUT": None,
-        "IGNORE": [r".+\.hot-update.js", r".+\.map"],
-    }
-}
-
-# PRODUCTION
-if not DEBUG:
-    WEBPACK_LOADER["DEFAULT"].update(
-        {
-            "BUNDLE_DIR_NAME": "dist/",
-            "STATS_FILE": os.path.join(BASE_DIR, "webpack-stats-prod.json"),
-        }
-    )

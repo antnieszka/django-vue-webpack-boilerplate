@@ -55,7 +55,9 @@ ENV/
 /static/
 /static-frontend/
 /assets/
+/frontend/assets/dist
+/frontend/assets/bundles
 
 # webpack output files
-webpack-stats.json
-webpack-stats-prod.json
+/frontend/webpack-stats.json
+/frontend/webpack-stats-prod.json

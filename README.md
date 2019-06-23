@@ -6,12 +6,21 @@ Django 2.2 + Vue.js 2 + Webpack 4
 
 ``` bash
 
-# When running for the first time
+# when running for the first time
+
+# using pipenv
+pip install --user pipenv  # if not yet installed
+pipenv install -r requirements.txt
+
+# using virtualenv
 python -m venv venv
+. venv/bin/activate # or on windows: venv\Scripts\activate.bat
 pip install -r requirements.txt
+
+# run database migrations
 python manage.py migrate
 
-# run server (localhost:8000)
+# run server (127.0.0.1:8000 by default)
 python manage.py runserver
 
 ```

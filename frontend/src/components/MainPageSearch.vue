@@ -30,6 +30,6 @@ export default {
 
 <style lang="scss">
 #main-page-search {
-  background-color: red;
+  border: 1px solid hotpink;
 }
 </style>
