@@ -3,6 +3,7 @@ import VueResource from "vue-resource";
 
 import MainPageSearch from "./components/MainPageSearch";
 
+Vue.config.devtools = true;
 Vue.config.productionTip = false;
 
 Vue.use(VueResource);

@@ -8,6 +8,7 @@ const baseWebpackConfig = require("./webpack.base.conf");
 const FriendlyErrorsPlugin = require("friendly-errors-webpack-plugin");
 const portfinder = require("portfinder");
 const BundleTracker = require("webpack-bundle-tracker");
+const WriteFilePlugin = require('write-file-webpack-plugin');
 const { VueLoaderPlugin } = require("vue-loader");
 
 const devWebpackConfig = merge(baseWebpackConfig, {
@@ -15,8 +16,8 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   output: {
     publicPath: "http://localhost:3000/",
-    path: path.resolve("./assets/bundles/"),
-    filename: "[name]-[hash].js"
+    path: path.resolve("./bundles/"),
+    filename: "[name].js"
   },
 
   // these devServer options should be customized in /config/index.js
@@ -47,12 +48,18 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
       "process.env": {
-        NODE_ENV: '"production"'
+        NODE_ENV: '"development"'
       }
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(), // HMR shows correct file names in console on update.
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    // enables writing files to disk
+    // https://www.npmjs.com/package/write-file-webpack-plugin
+    new WriteFilePlugin({
+      test: /^(?!.+(?:hot-update.(js|json))).+$/,
+      useHashIndex: true
+    })
   ],
   optimization: {
     splitChunks: {

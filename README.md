@@ -43,3 +43,13 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+
+### Inspired by
+
+- https://github.com/owais/django-webpack-loader
+- https://github.com/NdagiStanley/vue-django
+- https://github.com/rokups/hello-vue-django/
+- https://github.com/michaelbukachi/django-vuejs-tutorial/wiki/Django-Vue.js-Integration-Tutorial
+- https://medium.com/uva-mobile-devhub/set-up-react-in-your-django-project-with-webpack-4fe1f8455396
+- and my own inventions/needs

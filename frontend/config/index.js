@@ -49,7 +49,7 @@ module.exports = {
 
   build: {
     // Paths
-    assetsRoot: path.resolve(__dirname, "../assets/"),
+    assetsRoot: path.resolve(__dirname, "../"),
     assetsSubDirectory: "dist",
     assetsPublicPath: "/",
 

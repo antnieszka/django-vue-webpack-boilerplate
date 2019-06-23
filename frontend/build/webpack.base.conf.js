@@ -10,7 +10,7 @@ function resolve(dir) {
 }
 
 module.exports = {
-  //context: path.resolve(__dirname, "../"),
+  context: path.resolve(__dirname, "../"),
   entry: {
     "main-page": "./src/main.js",
     "main-page-search": "./src/search.js"
